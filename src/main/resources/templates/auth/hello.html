@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Profile</title>
+</head>
+<body>
+
+<div th:text="${'Hello, ' + user.getUsername() + '!'}">value</div>
+<form th:action="@{/logout}" th:method="POST">
+    <input type="submit" value="Log out">
+</form>
+
+<br>
+<form th:action="@{/exp/currency}" method="post">
+    <select name="currency" id="currency">
+        <option th:each="c : ${currencies}"
+                th:value="${c.getCode()}"
+                th:text="${c.getCode()}"
+                th:selected="${c.getCode() == session.currency}"></option>
+    </select>
+    <button type="submit">Change</button>
+</form>
+
+<p><a href="/exp/new"><button>Add expense</button></a></p>
+<div th:if="${expenses.isEmpty()}">Your expense history is empty.</div>
+
+<div th:if="${!expenses.isEmpty()}">
+    <p><b>History:</b></p>
+    <div th:each="entry : ${expenses}">
+        <p>
+            <div th:text="${entry.getTotal() + ', ' + entry.getMessage() + ', ' + entry.getAddedAt()}"></div>
+            <a th:href="@{/exp/{id}/edit(id=${entry.getId()})}"><button>Edit</button></a>
+        <form th:method="DELETE" th:action="@{/exp/{id}/delete(id=${entry.getId()})}">
+            <input type="submit" value="Delete">
+        </form>
+        </p>
+    </div>
+</div>
+</body>
+</html>

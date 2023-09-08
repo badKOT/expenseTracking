@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit expense</title>
+</head>
+<body>
+
+<form th:method="PATCH" th:action="@{/exp/{id}(id=${id})}" th:object="${expense}">
+    <label for="total">Enter total: </label>
+    <input type="number" step=".01" min="0" required th:field="*{total}" id="total">
+    <div style="color:red" th:if="${#fields.hasErrors('total')}" th:errors="*{total}">Error</div>
+    <br>
+    <label for="message">Enter message: </label>
+    <input type="text" id="message" th:field="*{message}">
+    <div style="color:red" th:if="${#fields.hasErrors('message')}" th:errors="*{message}">Error</div>
+    <br>
+    <input type="submit" value="Submit">
+</form>
+
+</body>
+</html>
