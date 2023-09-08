@@ -2,27 +2,27 @@
 <html lang="ru" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Login</title>
+    <title>Войти</title>
 </head>
 <body>
 
 <form name="f" method="post" action="/process_login">
     <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
 
-    <label for="username">Enter username: </label>
+    <label for="username">Введите имя пользователя: </label>
     <input type="text" id="username" name="username">
     <br>
-    <label for="password">Enter password: </label>
+    <label for="password">Введите пароль: </label>
     <input type="password" id="password" name="password">
     <br>
-    <input type="submit" value="Sign In">
+    <input type="submit" value="Войти">
 
     <div th:if="${param.error}" style="color:red">
-        Invalid username or password
+        Неверное имя пользователя или пароль.
     </div>
 </form>
 
-<a href="/auth/new"><button>Sign Up</button></a>
+<a href="/auth/new"><button>Зарегистрироваться</button></a>
 
 </body>
 </html>

@@ -16,13 +16,13 @@ public class User {
     private int id;
 
     @Column(name = "username")
-    @NotEmpty(message = "Cannot be empty")
-    @Size(min = 5, max = 40, message = "Should be 5 to 40 characters long")
+    @NotEmpty(message = "Не может быть пустым")
+    @Size(min = 5, max = 40, message = "Поле должно содержать от 5 до 40 знаков")
     private String username;
 
     @Column(name = "password")
-    @NotEmpty(message = "Cannot be empty")
-    @Size(min = 5, max = 100, message = "Should be 5 to 40 characters long")
+    @NotEmpty(message = "Не может быть пустым")
+    @Size(min = 5, max = 100, message = "Поле должно содержать от 5 до 40 знаков")
     private String password;
 
     @OneToMany(mappedBy = "owner", fetch = FetchType.EAGER)

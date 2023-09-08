@@ -15,11 +15,11 @@ public class Expense {
     private int id;
 
     @Column(name = "total")
-    @Positive
+    @Positive(message = "Должно быть положительным")
     private double total;
 
     @Column(name = "message")
-    @Size(max = 200, message = "Cannot be over 200 characters long")
+    @Size(max = 200, message = "Не может быть длиннее 200 знаков")
     private String message;
 
     @Column(name = "added_at")

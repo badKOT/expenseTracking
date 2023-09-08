@@ -2,20 +2,20 @@
 <html lang="ru" xmlns:th="http://thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>New expense</title>
+    <title>Добавить</title>
 </head>
 <body>
 
 <form th:method="POST" th:action="@{/exp}" th:object="${expense}">
-    <label for="total">Enter total: </label>
+    <label for="total">Введите сумму: </label>
     <input type="number" step=".01" min="0" required th:field="*{total}" id="total">
     <div style="color:red" th:if="${#fields.hasErrors('total')}" th:errors="*{total}">Error</div>
     <br>
-    <label for="message">Enter message: </label>
+    <label for="message">Введите описание: </label>
     <input type="text" th:field="*{message}" id="message">
     <div style="color:red" th:if="${#fields.hasErrors('message')}" th:errors="*{message}">Error</div>
     <br>
-    <input type="submit" value="Add">
+    <input type="submit" value="Добавить">
 </form>
 
 </body>

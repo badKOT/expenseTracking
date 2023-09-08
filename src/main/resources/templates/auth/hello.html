@@ -2,13 +2,13 @@
 <html lang="ru" xmlns:th="http://thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Profile</title>
+    <title>Главная</title>
 </head>
 <body>
 
-<div th:text="${'Hello, ' + user.getUsername() + '!'}">value</div>
+<div th:text="${'Привет, ' + user.getUsername() + '!'}">value</div>
 <form th:action="@{/logout}" th:method="POST">
-    <input type="submit" value="Log out">
+    <input type="submit" value="Выйти">
 </form>
 
 <br>
@@ -19,20 +19,20 @@
                 th:text="${c.getCode()}"
                 th:selected="${c.getCode() == session.currency}"></option>
     </select>
-    <button type="submit">Change</button>
+    <button type="submit">Изменить</button>
 </form>
 
-<p><a href="/exp/new"><button>Add expense</button></a></p>
-<div th:if="${expenses.isEmpty()}">Your expense history is empty.</div>
+<p><a href="/exp/new"><button>Добавить запись</button></a></p>
+<div th:if="${expenses.isEmpty()}">Записей нет.</div>
 
 <div th:if="${!expenses.isEmpty()}">
-    <p><b>History:</b></p>
+    <p><b>История:</b></p>
     <div th:each="entry : ${expenses}">
         <p>
             <div th:text="${entry.getTotal() + ', ' + entry.getMessage() + ', ' + entry.getAddedAt()}"></div>
-            <a th:href="@{/exp/{id}/edit(id=${entry.getId()})}"><button>Edit</button></a>
+            <a th:href="@{/exp/{id}/edit(id=${entry.getId()})}"><button>Изменить</button></a>
         <form th:method="DELETE" th:action="@{/exp/{id}/delete(id=${entry.getId()})}">
-            <input type="submit" value="Delete">
+            <input type="submit" value="Удалить">
         </form>
         </p>
     </div>
