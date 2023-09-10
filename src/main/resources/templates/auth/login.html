@@ -4,6 +4,54 @@
     <meta charset="UTF-8">
     <title>Войти</title>
 </head>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+    }
+
+    .container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    h1 {
+        font-size: 24px;
+        color: #333;
+    }
+
+    p {
+        font-size: 16px;
+        line-height: 1.5;
+        color: #666;
+    }
+
+    button, #loggin-input, #registration-button {
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        cursor: pointer;
+        border-radius: 5px;
+        text-decoration: none;
+    }
+
+    button:hover, #loggin-input:hover, #registration-button:hover {
+        background-color: #0056b3;
+    }
+
+    select {
+        padding: 5px;
+        font-size: 16px;
+    }
+
+    form {
+        margin: 10px 0;
+    }
+</style>
 <body>
 
 <form name="f" method="post" action="/process_login">
@@ -14,15 +62,13 @@
     <br>
     <label for="password">Введите пароль: </label>
     <input type="password" id="password" name="password">
-    <br>
-    <input type="submit" value="Войти">
-
-    <div th:if="${param.error}" style="color:red">
-        Неверное имя пользователя или пароль.
-    </div>
+    <br><br>
+    <input id="loggin-input" type="submit" value="Войти">
+    <a id="registration-button" href="/auth/new">Зарегистрироваться</a>
 </form>
-
-<a href="/auth/new"><button>Зарегистрироваться</button></a>
+<p th:if="${param.error}" style="border-radius: 10px; width: fit-content; color:black; background-color: #e83a3a; font-weight:bold; padding: 0.5em">
+    Неверное имя пользователя или пароль.
+</p>
 
 </body>
 </html>
