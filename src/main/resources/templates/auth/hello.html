@@ -120,7 +120,7 @@
 
 <hr>
 <div id="add-record">
-    <p style="font-size: 20px; margin: 0;"><b>Добавить запись о расходе</b></p><br>
+    <p style="font-size: 20px; margin: 0;"><b>История расходов:</b></p><br>
     <form style="margin: 0;" th:action="@{/exp/currency}" method="post">
         <select name="currency" id="currency">
             <option th:each="c : ${currencies}"
@@ -128,12 +128,15 @@
                     th:text="${c.getCode()}"
                     th:selected="${c.getCode() == session.currency}"></option>
         </select>
-        <button type="submit">Изменить</button>
+        <button type="submit">Изменить валюту</button>
         <a id="add-record-href" href="/exp/new">Добавить запись</a>
+    </form>
+    <form th:action="@{/auth/hello}" method="post">
+        <button type="submit">Обновить валюты</button>
     </form>
 </div>
 
-<div th:if="${expenses.isEmpty()}">Записей о расходах ещё нет. Вы можете добавить историю, нажав на "Добавить запись"</div>
+<div th:if="${expenses.isEmpty()}">Записей о расходах ещё нет. Вы можете начать историю, нажав на "Добавить запись"</div>
 
 <div id="purchases" th:if="${!expenses.isEmpty()}">
     <p style="font-size: 20px;"><b>История расходов</b></p>

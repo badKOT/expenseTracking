@@ -29,13 +29,14 @@
         color: #666;
     }
 
-    button {
+    button, #registration-button {
         background-color: #007bff;
         color: #fff;
         border: none;
         padding: 10px 20px;
         cursor: pointer;
         border-radius: 5px;
+        text-decoration: none;
     }
 
     button:hover {
@@ -64,7 +65,7 @@
     <input type="password" th:field="*{password}" id="password">
     <div style="color:red" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Error</div>
     <br>
-    <input type="submit" value="Зарегистрироваться">
+    <input type="submit" id="registration-button" value="Зарегистрироваться">
 </form>
 
 </body>

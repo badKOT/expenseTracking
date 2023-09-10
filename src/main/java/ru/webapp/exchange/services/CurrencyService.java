@@ -14,10 +14,16 @@ import java.util.stream.Collectors;
 
 @Service
 public class CurrencyService {
+    private Currency[] currencies;
+
+    {
+        this.currencies = this.updateExchange();
+    }
+
     public Currency[] updateExchange() {
         try {
             URL url = new URL("https://api.currencyapi.com/v3/latest?" +
-                    "apikey=cur_live_0UdKjKsjxMUX5ud82CD71XjZv9z3creLQYCrKM3Z&" +
+                    "apikey=cur_live_IGeMF0TL91kvPORCWzvk6Vi8kbsYHvDC7VRdcQdm&" +
                     "currencies=EUR%2CUSD%2CCNY%2CTRY%2CRUB&" +
                     "base_currency=RUB");
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -35,12 +41,17 @@ public class CurrencyService {
                 sc.close();
                 conn.disconnect();
 
-                return parseJson(inline.toString());
+                this.currencies = parseJson(inline.toString());
+                System.out.println(currencies[0]);
+                return this.currencies;
             }
         } catch (Exception e) {
             e.printStackTrace();
+            if (this.currencies == null) {
+                return null;
+            }
+            return this.currencies;
         }
-        return null;
     }
 
     private Currency[] parseJson(String json) throws JsonProcessingException {
@@ -70,5 +81,12 @@ public class CurrencyService {
             entry.setTotal(entry.getTotal() * cur.get().getValue());
         }
         return initialList;
+    }
+
+    public Currency[] getCurrencies() {
+        if (currencies == null) {
+            currencies = updateExchange();
+        }
+        return currencies;
     }
 }

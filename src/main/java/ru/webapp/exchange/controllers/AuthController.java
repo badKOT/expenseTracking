@@ -73,7 +73,7 @@ public class AuthController {
         UserDetailsImpl details = (UserDetailsImpl)
                 userService.loadUserByUsername(principal.getName());
         User user = details.getUser();
-        Currency[] currencies = currencyService.updateExchange();
+        Currency[] currencies = currencyService.getCurrencies();
         model.addAttribute("user", user);
         model.addAttribute("currencies", currencies);
 
@@ -87,5 +87,11 @@ public class AuthController {
 
         model.addAttribute("expenses", expenses);
         return "auth/hello";
+    }
+
+    @PostMapping("/hello")
+    public String updateCurrencies() {
+        Currency[] currencies = currencyService.updateExchange();
+        return "redirect:/auth/hello";
     }
 }
