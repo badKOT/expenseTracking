@@ -4,6 +4,53 @@
     <meta charset="UTF-8">
     <title>Добавить</title>
 </head>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+    }
+
+    .container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    h1 {
+        font-size: 24px;
+        color: #333;
+    }
+
+    p {
+        font-size: 16px;
+        line-height: 1.5;
+        color: #666;
+    }
+
+    button {
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        cursor: pointer;
+        border-radius: 5px;
+    }
+
+    button:hover {
+        background-color: #0056b3;
+    }
+
+    select {
+        padding: 5px;
+        font-size: 16px;
+    }
+
+    form {
+        margin: 10px 0;
+    }
+</style>
 <body>
 
 <form th:method="POST" th:action="@{/exp}" th:object="${expense}">

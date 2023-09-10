@@ -2,39 +2,148 @@
 <html lang="ru" xmlns:th="http://thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Главная</title>
+    <title>Главная страница</title>
 </head>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+    }
+
+    .container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    h1 {
+        font-size: 24px;
+        color: #333;
+    }
+
+    p {
+        font-size: 16px;
+        line-height: 1.5;
+        color: #666;
+    }
+
+    button {
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        cursor: pointer;
+        border-radius: 5px;
+    }
+
+    input, #add-record-href {
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        cursor: pointer;
+        border-radius: 5px;
+        text-decoration: none;
+    }
+
+    button:hover, #add-record-href:hover {
+        background-color: #0056b3;
+    }
+
+    select {
+        padding: 5px;
+        font-size: 16px;
+    }
+
+    form {
+        margin: 10px 0;
+    }
+
+    .introducing {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    #introducing-title {
+        font-size: 30px;
+        font-weight: bold;
+        text-align: center;
+    }
+
+    #leave-account {
+        background-color: #e83a3a;
+        padding: 0.3em 1em;
+        color: white;
+        font-weight: bold;
+        font-size: 20px;
+        margin: 0 auto;
+        display: block;
+    }
+
+    #purchases {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .purchase-record {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    #add-record {
+        display: flex;
+        margin: 0 auto;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+    }
+</style>
 <body>
 
-<div th:text="${'Привет, ' + user.getUsername() + '!'}">value</div>
+<div class="introducing">
+    <div style="margin-top: 15px;" id="introducing-title" th:text="${'Привет, ' + user.getUsername() + '!'}"></div>
+    <p id="description">
+        На этой странице ты можешь добавлять записи о своих расходах и конвертировать их в доступные валюты
+    </p>
+</div>
 <form th:action="@{/logout}" th:method="POST">
-    <input type="submit" value="Выйти">
+    <input id="leave-account" type="submit" value="Выйти из аккаунта">
 </form>
 
-<br>
-<form th:action="@{/exp/currency}" method="post">
-    <select name="currency" id="currency">
-        <option th:each="c : ${currencies}"
-                th:value="${c.getCode()}"
-                th:text="${c.getCode()}"
-                th:selected="${c.getCode() == session.currency}"></option>
-    </select>
-    <button type="submit">Изменить</button>
-</form>
+<hr>
+<div id="add-record">
+    <p style="font-size: 20px; margin: 0;"><b>Добавить запись о расходе</b></p><br>
+    <form style="margin: 0;" th:action="@{/exp/currency}" method="post">
+        <select name="currency" id="currency">
+            <option th:each="c : ${currencies}"
+                    th:value="${c.getCode()}"
+                    th:text="${c.getCode()}"
+                    th:selected="${c.getCode() == session.currency}"></option>
+        </select>
+        <button type="submit">Изменить</button>
+        <a id="add-record-href" href="/exp/new">Добавить запись</a>
+    </form>
+</div>
 
-<p><a href="/exp/new"><button>Добавить запись</button></a></p>
-<div th:if="${expenses.isEmpty()}">Записей нет.</div>
+<div th:if="${expenses.isEmpty()}">Записей о расходах ещё нет. Вы можете добавить историю, нажав на "Добавить запись"</div>
 
-<div th:if="${!expenses.isEmpty()}">
-    <p><b>История:</b></p>
-    <div th:each="entry : ${expenses}">
-        <p>
-            <div th:text="${entry.getTotal() + ', ' + entry.getMessage() + ', ' + entry.getAddedAt()}"></div>
-            <a th:href="@{/exp/{id}/edit(id=${entry.getId()})}"><button>Изменить</button></a>
+<div id="purchases" th:if="${!expenses.isEmpty()}">
+    <p style="font-size: 20px;"><b>История расходов</b></p>
+    <div th:each="entry : ${expenses}" class="purchase-record">
+        <div th:text="${entry.getTotal() + ', ' + entry.getMessage() + ', ' + entry.getAddedAt()}"></div>
+        <a th:href="@{/exp/{id}/edit(id=${entry.getId()})}"><button style="margin: 0px 10px;">Изменить</button></a>
         <form th:method="DELETE" th:action="@{/exp/{id}/delete(id=${entry.getId()})}">
-            <input type="submit" value="Удалить">
+            <input type="submit" value="Удалить запись">
         </form>
-        </p>
+        <hr>
     </div>
 </div>
 </body>
